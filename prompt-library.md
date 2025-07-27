@@ -267,4 +267,70 @@ Please generate a detailed architectural document based on the above.
 ### Context for Next Iteration
 - **Previous Decision**: Rejected monolithic approach
 - **Reasoning**: Need for microservices architecture with clear service boundaries
-- **Next Focus**: Microservices-based architecture with 9 distinct services 
+- **Next Focus**: Microservices-based architecture with 9 distinct services
+
+---
+
+## PostgreSQL Schema Design for Microservices
+
+### Original Prompt
+```
+You are a seasoned software architect specializing in designing scalable microservice-based systems using PostgreSQL.
+
+Refer to the architecture described in @microservices-project-architecture.md  . Use the service names and boundaries **exactly as defined there** — do not rename, re-define, or modify the services. Reference them when grouping the schema.
+
+Your task is to design a normalized and scalable PostgreSQL schema that aligns with this architecture.
+
+Requirements:
+
+1. Define tables for core entities: `User`, `Project`, `Task`, `Comment`, and `TimeLog`.
+2. Organize the SQL `CREATE TABLE` statements by microservice ownership **based on the architecture**, such as:
+   - User Service
+   - Project Service
+   - Task Service
+   - Comment Service
+   - Time Tracking Service
+3. Use proper SQL best practices:
+   - UUIDs for primary keys
+   - `created_at`, `updated_at` timestamp columns
+   - Foreign keys with cascading behavior (where appropriate)
+   - Indexes on foreign keys and commonly queried fields
+   - Constraints such as `NOT NULL`, `UNIQUE`, etc.
+4. Respect microservice boundaries:
+   - Avoid direct joins across services
+   - Clearly indicate foreign keys that reference data in another service (e.g., using `external_project_id`)
+   - Mark ownership of each table based on its service
+5. Follow consistent naming conventions:
+   - Snake_case for tables and fields
+   - Plural table names if appropriate
+
+Deliverables:
+
+1. SQL `CREATE TABLE` statements grouped by microservice in a markdown code block.
+2. A brief explanation of key design decisions:
+   - Why certain relationships were modeled a certain way
+   - How you ensured decoupling and service autonomy
+   - Why certain indexes and constraints were applied
+3. A list of suggested enhancements for Phase 2, such as:
+   - Soft deletes using a `deleted_at` column
+   - Audit trail support
+   - Event sourcing
+   - Multi-tenancy design
+   - Schema versioning
+   - Use of enum types or lookup tables
+
+Assume horizontal scalability is a key requirement, and structure the schema to accommodate future modular growth.
+```
+
+### Context
+- **Date**: Current session
+- **Technology Stack**: PostgreSQL + Microservices Architecture
+- **Scope**: Database schema design for microservices with clear service boundaries
+- **Requirements**: Normalized schema, service autonomy, horizontal scalability
+
+### Categories
+- Database Design
+- Microservices Architecture
+- PostgreSQL Optimization
+- Schema Planning
+- Service Boundaries 
