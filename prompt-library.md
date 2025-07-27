@@ -210,9 +210,61 @@ Please recommend the **most suitable option** with a clear explanation and trade
 After careful consideration, I've decided to explore alternative architecture approaches that better align with my specific requirements and long-term vision.
 
 ### Next Architecture Prompt
-*[Placeholder for next architecture prompt - to be added]*
+```
+@project-architecture.md
+
+You are an expert software architect. I want you to help me design a scalable and modular system architecture based on the following requirements. Please provide a clear, detailed breakdown with rationale for each decision.
+
+---
+
+## Business Context
+Development teams need to track project progress and resource allocation efficiently in real time.
+
+---
+
+## Core Requirements
+1. **Project Creation**: Users can create projects with timelines and milestones.
+2. **Task Management**: Tasks can be created, prioritized, and assigned to team members.
+3. **Progress Tracking**: Visual indicators (e.g., Gantt charts, percent complete) and status updates.
+4. **Team Collaboration**: Commenting system, file attachments, and notifications.
+5. **Time Tracking**: Users can log hours spent on tasks and projects.
+
+---
+
+## Technical Stack (Strict)
+- **Frontend**: React
+- **Backend**: Python with Django REST Framework
+- **Database**: PostgreSQL
+
+---
+
+## Architecture Goal
+Design a production-ready, microservices-based architecture that ensures:
+- Scalability
+- Separation of concerns
+- Maintainability
+- Real-time collaboration (if needed)
+- Easy integration with third-party tools (like Slack or GitHub)
+- Developer-friendly APIs
+- Clear division of services (example: auth, projects, tasks, time-tracking)
+
+---
+
+## Expected Output
+1. High-level architecture diagram (describe with text block if visual not possible)
+2. List of proposed microservices and their responsibilities
+3. Database design (schema or ERD format in text)
+4. API Gateway or BFF layer (if needed)
+5. Auth mechanism (JWT/OAuth2)
+6. File upload and notifications strategy
+7. Optional: CI/CD, monitoring/logging recommendations
+
+---
+
+Please generate a detailed architectural document based on the above.
+```
 
 ### Context for Next Iteration
 - **Previous Decision**: Rejected monolithic approach
-- **Reasoning**: Need to document specific concerns or requirements
-- **Next Focus**: Alternative architecture patterns or hybrid approaches 
+- **Reasoning**: Need for microservices architecture with clear service boundaries
+- **Next Focus**: Microservices-based architecture with 9 distinct services 
