@@ -333,4 +333,47 @@ Assume horizontal scalability is a key requirement, and structure the schema to 
 - Microservices Architecture
 - PostgreSQL Optimization
 - Schema Planning
-- Service Boundaries 
+- Service Boundaries
+
+---
+
+## Microservices API Design & Data Flow
+
+### Original Prompt
+```
+You are a senior backend engineer with expertise in designing APIs for microservices architectures.
+
+Refer to the architecture defined in @microservices-project-architecture.md  and the database schema in @postgresql-microservices-schema.md.
+
+Your task:
+Design service-level RESTful API endpoints and illustrate the data flow between services.
+
+Expectations:
+- Break down endpoints by microservice (e.g., User Service, Project Service, Task Service, etc.)
+- For each endpoint, define:
+  - HTTP method and path
+  - Expected request and response structure (brief JSON format)
+  - Authentication/authorization requirements
+- Specify which services communicate internally and how (REST, event-driven, etc.)
+- Define error-handling strategy and standard response formats
+- Mention any pagination, filtering, or rate limiting where applicable
+
+Present the output in:
+1. A markdown section with endpoints grouped by service
+2. A data flow diagram or explanation of how services interact (e.g., Task Service queries User Service for assignee)
+3. A table of standardized error responses used across all APIs
+```
+
+### Context
+- **Date**: Current session
+- **Technology Stack**: RESTful APIs + Microservices Architecture
+- **Scope**: API design for microservices with data flow patterns
+- **Requirements**: Service endpoints, cross-service communication, error handling
+
+### Categories
+- API Design
+- Microservices Architecture
+- RESTful APIs
+- Service Communication
+- Error Handling
+- Data Flow Patterns 
