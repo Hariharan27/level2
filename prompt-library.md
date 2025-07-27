@@ -134,4 +134,47 @@ Do not generate actual implementation code at this stage. Only focus on architec
 - System Design
 - Scalability Planning
 - Technology Evaluation
-- Decision Making 
+- Decision Making
+
+---
+
+## Architecture Recommendation & Selection
+
+### Original Prompt
+```
+@architecture-options.md
+
+You are an expert full-stack architect.
+
+Given the architectural options listed in the above file and my tech stack:
+
+- Backend: Django (Python)
+- Frontend: React (SPA)
+- Database: PostgreSQL
+- Auth: JWT (via djangorestframework-simplejwt)
+
+Help me **choose the best architecture** among the options by evaluating:
+- Scalability
+- Maintainability
+- Development complexity
+- Deployment setup
+- PostgreSQL compatibility
+- Team collaboration
+- Support for real-time updates and background tasks
+- Future extensibility
+
+Please recommend the **most suitable option** with a clear explanation and trade-offs.
+```
+
+### Context
+- **Date**: Current session
+- **Technology Stack**: Django + React + PostgreSQL + JWT
+- **Scope**: Architecture evaluation and recommendation based on specific criteria
+- **Requirements**: Decision-making framework for architecture selection
+
+### Categories
+- Architecture Evaluation
+- Decision Making
+- Technology Assessment
+- Project Planning
+- Risk Analysis 
