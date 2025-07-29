@@ -1,0 +1,199 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'project-management-system'
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # API Gateway (Kong)
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:8001']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Authentication Service
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['auth-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # User Service
+  - job_name: 'user-service'
+    static_configs:
+      - targets: ['user-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Project Service
+  - job_name: 'project-service'
+    static_configs:
+      - targets: ['project-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Task Service
+  - job_name: 'task-service'
+    static_configs:
+      - targets: ['task-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Time Tracking Service
+  - job_name: 'time-service'
+    static_configs:
+      - targets: ['time-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # File Service
+  - job_name: 'file-service'
+    static_configs:
+      - targets: ['file-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Comment Service
+  - job_name: 'comment-service'
+    static_configs:
+      - targets: ['comment-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Notification Service
+  - job_name: 'notification-service'
+    static_configs:
+      - targets: ['notification-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Analytics Service
+  - job_name: 'analytics-service'
+    static_configs:
+      - targets: ['analytics-service:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  # RabbitMQ
+  - job_name: 'rabbitmq'
+    static_configs:
+      - targets: ['rabbitmq:15672']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  # PostgreSQL Databases
+  - job_name: 'postgres-auth'
+    static_configs:
+      - targets: ['auth-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  - job_name: 'postgres-user'
+    static_configs:
+      - targets: ['user-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  - job_name: 'postgres-project'
+    static_configs:
+      - targets: ['project-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  - job_name: 'postgres-task'
+    static_configs:
+      - targets: ['task-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  - job_name: 'postgres-time'
+    static_configs:
+      - targets: ['time-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  - job_name: 'postgres-comment'
+    static_configs:
+      - targets: ['comment-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  - job_name: 'postgres-analytics'
+    static_configs:
+      - targets: ['analytics-db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  # Elasticsearch
+  - job_name: 'elasticsearch'
+    static_configs:
+      - targets: ['elasticsearch:9200']
+    metrics_path: /_prometheus/metrics
+    scrape_interval: 30s
+
+  # MinIO
+  - job_name: 'minio'
+    static_configs:
+      - targets: ['minio:9000']
+    metrics_path: /minio/v2/metrics/cluster
+    scrape_interval: 30s
+
+  # Node Exporter (if needed for system metrics)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 30s
+
+  # Health Checks
+  - job_name: 'health-checks'
+    static_configs:
+      - targets: 
+        - 'auth-service:8000'
+        - 'user-service:8000'
+        - 'project-service:8000'
+        - 'task-service:8000'
+        - 'time-service:8000'
+        - 'file-service:8000'
+        - 'comment-service:8000'
+        - 'notification-service:8000'
+        - 'analytics-service:8000'
+    metrics_path: /health
+    scrape_interval: 30s
+    scrape_timeout: 5s
+
+# Alerting rules (optional)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Recording rules (optional)
+rule_files:
+  # - "recording_rules.yml" 

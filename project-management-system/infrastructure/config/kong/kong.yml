@@ -1,0 +1,264 @@
+_format_version: "2.1"
+
+services:
+  # Authentication Service
+  - name: auth-service
+    url: http://auth-service:8000
+    routes:
+      - name: auth-routes
+        paths: ["/api/v1/auth"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # User Service
+  - name: user-service
+    url: http://user-service:8000
+    routes:
+      - name: user-routes
+        paths: ["/api/v1/users", "/api/v1/teams", "/api/v1/organizations"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 200
+          hour: 2000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # Project Service
+  - name: project-service
+    url: http://project-service:8000
+    routes:
+      - name: project-routes
+        paths: ["/api/v1/projects", "/api/v1/milestones"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 150
+          hour: 1500
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # Task Service
+  - name: task-service
+    url: http://task-service:8000
+    routes:
+      - name: task-routes
+        paths: ["/api/v1/tasks", "/api/v1/task-dependencies"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 200
+          hour: 2000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # Time Tracking Service
+  - name: time-service
+    url: http://time-service:8000
+    routes:
+      - name: time-routes
+        paths: ["/api/v1/time-entries", "/api/v1/timesheets", "/api/v1/time-analytics"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 300
+          hour: 3000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # File Service
+  - name: file-service
+    url: http://file-service:8000
+    routes:
+      - name: file-routes
+        paths: ["/api/v1/files", "/api/v1/uploads"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With", "Content-Length"]
+          exposed_headers: ["X-Total-Count", "Content-Disposition"]
+          credentials: true
+          max_age: 3600
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10485760  # 10MB
+
+  # Comment Service
+  - name: comment-service
+    url: http://comment-service:8000
+    routes:
+      - name: comment-routes
+        paths: ["/api/v1/comments", "/api/v1/reactions"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 200
+          hour: 2000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # Notification Service
+  - name: notification-service
+    url: http://notification-service:8000
+    routes:
+      - name: notification-routes
+        paths: ["/api/v1/notifications", "/api/v1/notification-preferences"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # Analytics Service
+  - name: analytics-service
+    url: http://analytics-service:8000
+    routes:
+      - name: analytics-routes
+        paths: ["/api/v1/analytics", "/api/v1/reports"]
+        methods: ["GET", "POST"]
+    plugins:
+      - name: jwt
+        config:
+          secret: ${JWT_SECRET}
+          key_claim_name: "user_id"
+          claims_to_verify: ["exp", "iat"]
+      - name: rate-limiting
+        config:
+          minute: 50
+          hour: 500
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET", "POST", "OPTIONS"]
+          headers: ["Content-Type", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Total-Count"]
+          credentials: true
+          max_age: 3600
+
+  # Health Check Service
+  - name: health-service
+    url: http://auth-service:8000
+    routes:
+      - name: health-routes
+        paths: ["/health"]
+        methods: ["GET"]
+    plugins:
+      - name: cors
+        config:
+          origins: ["*"]
+          methods: ["GET"]
+          headers: ["Content-Type"]
+          max_age: 3600
+
+  # API Documentation Service
+  - name: docs-service
+    url: http://auth-service:8000
+    routes:
+      - name: docs-routes
+        paths: ["/docs", "/redoc", "/swagger"]
+        methods: ["GET"]
+    plugins:
+      - name: cors
+        config:
+          origins: ["http://localhost:3000", "http://frontend:3000"]
+          methods: ["GET"]
+          headers: ["Content-Type"]
+          max_age: 3600 
